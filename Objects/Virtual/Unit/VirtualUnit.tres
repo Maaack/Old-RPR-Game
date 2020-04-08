@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Objects/Virtual/Unit/VirtualQuantity.gd" type="Script" id=1]
+
+
+
+
+[resource]
+script = ExtResource( 1 )
+dictionary = {
+"DESCRIPTION": "Description",
+"GROUP_NAME": "GROUP_NAME",
+"READABLE_NAME": "Readable Name"
+}
+size = Vector2( 1, 1 )
+mass = 0.0
+position = Vector2( 0, 0 )
+linear_velocity = Vector2( 0, 0 )
+rotation = 0.0
+angular_velocity = 0.0
+numerical_unit = 0
+quantity = 1.0

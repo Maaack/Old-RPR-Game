@@ -1,0 +1,52 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "PhysicalUnit2D",
+"language": "GDScript",
+"path": "res://Objects/Physical/Unit/PhysicalUnit.gd"
+}, {
+"base": "VirtualUnit",
+"class": "VirtualQuantity",
+"language": "GDScript",
+"path": "res://Objects/Virtual/Unit/VirtualQuantity.gd"
+}, {
+"base": "Resource",
+"class": "VirtualSet",
+"language": "GDScript",
+"path": "res://Objects/Virtual/Set/VirtualSet.gd"
+}, {
+"base": "PhysicalQuantities",
+"class": "VirtualSpace",
+"language": "GDScript",
+"path": "res://Objects/Virtual/Set/VirtualSpace.gd"
+}, {
+"base": "Resource",
+"class": "VirtualUnit",
+"language": "GDScript",
+"path": "res://Objects/Virtual/Unit/VirtualUnit.gd"
+} ]
+_global_script_class_icons={
+"PhysicalUnit2D": "",
+"VirtualQuantity": "",
+"VirtualSet": "",
+"VirtualSpace": "",
+"VirtualUnit": ""
+}
+
+[application]
+
+config/name="Rocket- Punk- Roxie"
+config/icon="res://icon.png"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
