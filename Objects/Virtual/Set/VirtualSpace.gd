@@ -1,4 +1,4 @@
-extends PhysicalQuantities
+extends VirtualSet
 
 
 class_name VirtualSpace
