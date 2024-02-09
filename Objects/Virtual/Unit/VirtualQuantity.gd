@@ -4,11 +4,11 @@ extends VirtualUnit
 class_name VirtualQuantity
 
 enum NumericalUnitSetting{ CONTINUOUS, DISCRETE }
-export(NumericalUnitSetting) var numerical_unit
-export(float) var quantity = 1.0 setget set_quantity
+@export var numerical_unit: NumericalUnitSetting
+@export var quantity: float = 1.0: set = set_quantity
 
 func _to_string():
-	return "[Quantity: [" + ._to_string() + ", " + str(quantity) + "]]"
+	return "[Quantity: [" + super._to_string() + ", " + str(quantity) + "]]"
 
 func set_quantity(value:float):
 	if value == null:
@@ -51,11 +51,11 @@ func get_unit_mass():
 	return mass
 
 func get_unit_area():
-	return .get_area()
+	return super.get_area()
 
 func get_area():
-	return quantity * .get_area()
+	return quantity * super.get_area()
 
 func get_quantity_for_area(value:float):
-	var unit_area = .get_area()
+	var unit_area = super.get_area()
 	return value / unit_area

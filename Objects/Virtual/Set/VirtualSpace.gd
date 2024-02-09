@@ -3,7 +3,7 @@ extends VirtualSet
 
 class_name VirtualSpace
 
-var reference_frame setget set_reference_frame
+var reference_frame : set = set_reference_frame
 
 func set_reference_frame(physical_unit:PhysicalUnit):
 	if physical_unit == null:

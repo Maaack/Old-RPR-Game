@@ -3,7 +3,7 @@ extends Resource
 
 class_name VirtualSet
 
-export(Array, Resource) var virtual_quantities setget set_virtual_quantities
+@export var virtual_quantities : set = set_virtual_quantities
 
 func _init(local_virtual_quantities=null):
 	if local_virtual_quantities != null:

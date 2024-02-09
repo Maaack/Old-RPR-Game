@@ -1,8 +1,8 @@
 extends "res://Objects/WorldSpace/Node2D.gd"
 
-export var world_space_size_base = Vector2(4096.0, 4096.0)
-export var world_space_size_mod = Vector2(40.0, 40.0)
-export var is_zero_centered = true
+@export var world_space_size_base = Vector2(4096.0, 4096.0)
+@export var world_space_size_mod = Vector2(40.0, 40.0)
+@export var is_zero_centered = true
 
 # func overrides
 func get_world_space():
@@ -34,8 +34,8 @@ func get_bottom_right_corner():
 func get_random_position_in_world_space():
 	var top_left_corner = get_top_left_corner()
 	var bottom_right_corner = get_bottom_right_corner()
-	var start_position_x = rand_range(top_left_corner.x, bottom_right_corner.x)
-	var start_position_y = rand_range(top_left_corner.y, bottom_right_corner.y)
+	var start_position_x = randf_range(top_left_corner.x, bottom_right_corner.x)
+	var start_position_y = randf_range(top_left_corner.y, bottom_right_corner.y)
 	return Vector2(start_position_x, start_position_y)
 
 func is_position_in_world_space(a_position:Vector2):

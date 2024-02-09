@@ -6,47 +6,30 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "RigidBody2D",
-"class": "PhysicalUnit2D",
-"language": "GDScript",
-"path": "res://Objects/Physical/Unit/PhysicalUnit.gd"
-}, {
-"base": "VirtualUnit",
-"class": "VirtualQuantity",
-"language": "GDScript",
-"path": "res://Objects/Virtual/Unit/VirtualQuantity.gd"
-}, {
-"base": "Resource",
-"class": "VirtualSet",
-"language": "GDScript",
-"path": "res://Objects/Virtual/Set/VirtualSet.gd"
-}, {
-"base": "PhysicalQuantities",
-"class": "VirtualSpace",
-"language": "GDScript",
-"path": "res://Objects/Virtual/Set/VirtualSpace.gd"
-}, {
-"base": "Resource",
-"class": "VirtualUnit",
-"language": "GDScript",
-"path": "res://Objects/Virtual/Unit/VirtualUnit.gd"
-} ]
-_global_script_class_icons={
-"PhysicalUnit2D": "",
-"VirtualQuantity": "",
-"VirtualSet": "",
-"VirtualSpace": "",
-"VirtualUnit": ""
-}
+config_version=5
 
 [application]
 
-config/name="Rocket- Punk- Roxie"
+config/name="Rocket Punk Roxie"
+run/main_scene="res://Extras/Scenes/InitApp/InitApp.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
+
+[autoload]
+
+SceneLoader="*res://App/Scripts/SceneLoader.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=3
+
+[dotnet]
+
+project/assembly_name="Rocket Punk Roxie"
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_environment="res://default_env.tres"

@@ -7,15 +7,15 @@ const READABLE_NAME = 'READABLE_NAME'
 const GROUP_NAME_KEY = 'GROUP_NAME'
 const DESCRIPTION_KEY = 'DESCRIPTION'
 
-export(Dictionary) var dictionary = {
+@export var dictionary: Dictionary = {
 	READABLE_NAME : 'Readable Name',
 	GROUP_NAME_KEY: 'GROUP_NAME',
 	DESCRIPTION_KEY: 'Description',
 }
-export(Texture) var icon
-export(Vector2) var size = Vector2(1.0, 1.0)
+@export var icon: Texture2D
+@export var size: Vector2 = Vector2(1.0, 1.0)
 
-onready var world_space = get_world_space()
+@onready var world_space = get_world_space()
 
 
 func import_virtual_unit(virtual_unit:VirtualUnit):

@@ -7,18 +7,18 @@ const READABLE_NAME = 'READABLE_NAME'
 const GROUP_NAME_KEY = 'GROUP_NAME'
 const DESCRIPTION_KEY = 'DESCRIPTION'
 
-export(Dictionary) var dictionary = {
+@export var dictionary: Dictionary = {
 	READABLE_NAME : 'Readable Name',
 	GROUP_NAME_KEY: 'GROUP_NAME',
 	DESCRIPTION_KEY: 'Description',
 }
-export(Texture) var icon
-export(Vector2) var size = Vector2(1.0, 1.0)
-export(float) var mass
-export(Vector2) var position
-export(Vector2) var linear_velocity
-export(float) var rotation
-export(float) var angular_velocity
+@export var icon: Texture2D
+@export var size: Vector2 = Vector2(1.0, 1.0)
+@export var mass: float
+@export var position: Vector2
+@export var linear_velocity: Vector2
+@export var rotation: float
+@export var angular_velocity: float
 
 func get_name():
 	return dictionary[READABLE_NAME]
