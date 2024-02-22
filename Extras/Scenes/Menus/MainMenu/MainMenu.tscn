@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://sbluwaaplbsg"]
+[gd_scene load_steps=5 format=3 uid="uid://sbluwaaplbsg"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://App/Scenes/Menus/MainMenu/MainMenu.tscn" id="1_y2dvq"]
 [ext_resource type="Script" path="res://Extras/Scenes/Menus/MainMenu/MainMenu.gd" id="1_yww1j"]
 [ext_resource type="PackedScene" uid="uid://cnk2y3bx5fsin" path="res://Extras/Scenes/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="2_3vb8r"]
+[ext_resource type="FontFile" uid="uid://bnbl7lvyc4d3f" path="res://Assets/Sourced/Fonts/blazma/Blazma-Italic.ttf" id="4_7huyv"]
 
 [node name="MainMenu" instance=ExtResource("1_y2dvq")]
 script = ExtResource("1_yww1j")
 game_scene_path = "res://Extras/Scenes/GameScene/GameUI.tscn"
 options_packed_scene = ExtResource("2_3vb8r")
+
+[node name="Title" parent="MarginContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="0"]
+theme_override_colors/font_color = Color(0.796078, 0.0156863, 0.647059, 1)
+theme_override_fonts/font = ExtResource("4_7huyv")
+theme_override_font_sizes/font_size = 64
+text = "Rocket Punk Roxie"
+
+[node name="SubTitle" parent="MarginContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="1"]
+theme_override_font_sizes/font_size = 16
+text = "02-2024 experiments"

@@ -13,6 +13,7 @@ config_version=5
 config/name="Rocket Punk Roxie"
 run/main_scene="res://Extras/Scenes/InitApp/InitApp.tscn"
 config/features=PackedStringArray("4.2")
+boot_splash/bg_color=Color(0.101961, 0.0784314, 0.137255, 1)
 config/icon="res://icon.png"
 
 [autoload]
@@ -24,12 +25,18 @@ SceneLoader="*res://App/Scripts/SceneLoader.gd"
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
 project/assembly_name="Rocket Punk Roxie"
 
+[gui]
+
+theme/custom="res://App/Themes/BaseTheme.tres"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.101961, 0.0784314, 0.137255, 1)
 environment/defaults/default_environment="res://default_env.tres"
