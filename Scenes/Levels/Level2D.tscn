@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c4yhaqscgvsk7" path="res://Scenes/Player/Player2D.tscn" id="2_wxmts"]
 
 [node name="Level2D" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_042hb")
 WorldSizeMod = 4.0
 

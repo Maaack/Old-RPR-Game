@@ -41,8 +41,8 @@ render_target_update_mode = 4
 [node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
 script = ExtResource("7_dgyvu")
 level_container = NodePath("../SubViewportContainer/SubViewport")
-files = Array[String](["res://Scenes/Levels/Level2D.tscn"])
-directory = "res://Scenes/Levels"
+files = Array[String](["res://Scenes/Levels/All/Level1.tscn"])
+directory = "res://Scenes/Levels/All"
 
 [connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]
 [connection signal="levels_finished" from="LevelLoader" to="." method="_on_level_loader_levels_finished"]

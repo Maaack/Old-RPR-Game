@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://2nt4oi48i4b7"]
+
+[ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="1_s6cxs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yu5js"]
+radius = 106.118
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to8sy"]
+atlas = ExtResource("1_s6cxs")
+region = Rect2(214, 832, 212, 218)
+
+[node name="Asteroid2D" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yu5js")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_to8sy")
