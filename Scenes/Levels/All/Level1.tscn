@@ -10,12 +10,16 @@ texture_filter = 1
 
 [node name="Asteroid2D" parent="." index="2" instance=ExtResource("2_nlmjn")]
 position = Vector2(-702, -500)
+angular_velocity = -0.261799
 
 [node name="Asteroid2D2" parent="." index="3" instance=ExtResource("2_nlmjn")]
 position = Vector2(933, -455)
+angular_velocity = -0.523599
 
 [node name="Asteroid2D3" parent="." index="4" instance=ExtResource("2_nlmjn")]
 position = Vector2(835, 327)
+angular_velocity = 0.523599
 
 [node name="Asteroid2D4" parent="." index="5" instance=ExtResource("2_nlmjn")]
 position = Vector2(-818, 560)
+angular_velocity = 0.523599
