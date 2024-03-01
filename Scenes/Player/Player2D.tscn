@@ -19,10 +19,11 @@ shape = SubResource("CircleShape2D_kcicj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_i7p3j")
+flip_v = true
 
 [node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
 
 [node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
 Body2D = NodePath("..")
-EngineForce = 1.0
+EngineForce = 8.0

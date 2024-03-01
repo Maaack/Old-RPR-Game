@@ -28,7 +28,11 @@ public partial class EngineControlComponent : ComponentBase
 		}
 	}
 	[Export]
-	public float EngineForce = 100.0f;
+	public float EngineForce = 1.0f;
+	[Export]
+	public float LinearForceMod = 1.0f;
+	[Export]
+	public float RotationalForceMod = 1.0f;
 	private bool ForwardEngineOn = false;
 	private bool ReverseEngineOn = false;
 	private bool LeftTurnEngineOn = false;
@@ -45,24 +49,28 @@ public partial class EngineControlComponent : ComponentBase
 	{
 		base._PhysicsProcess(delta);
 		var finalVelocityVector = new Vector2();
+		var finalRotationValue = 0.0f;
 		if (ForwardEngineOn)
 		{
-			finalVelocityVector += Vector2.Up;
+			
+			finalVelocityVector += Vector2.Up.Rotated(body2D.Rotation);
 		}
 		if (ReverseEngineOn)
 		{
-			finalVelocityVector += Vector2.Down;
+			finalVelocityVector += Vector2.Down.Rotated(body2D.Rotation);
 		}
 		if (LeftTurnEngineOn)
 		{
-			finalVelocityVector += Vector2.Left;
+			finalRotationValue -= 1.0f;
 		}
 		if (RightTurnEngineOn)
 		{
-			finalVelocityVector += Vector2.Right;
+			finalRotationValue += 1.0f;
 		}
-		finalVelocityVector *= EngineForce;
+		finalVelocityVector *= EngineForce * LinearForceMod;
+		finalRotationValue *= EngineForce * RotationalForceMod;
 		body2D.ApplyCentralImpulse(finalVelocityVector);
+		body2D.ApplyTorqueImpulse(finalRotationValue);
 	}
 
 	private void OnDirectionPressed(int inputDirection)
