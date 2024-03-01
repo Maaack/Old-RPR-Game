@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccltxo8akk4d4"]
+
+[ext_resource type="Script" path="res://Scenes/Components/ComponentBase.cs" id="1_4dvco"]
+
+[node name="ComponentBase" type="Node"]
+script = ExtResource("1_4dvco")

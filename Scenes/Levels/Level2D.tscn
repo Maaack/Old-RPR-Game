@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://t4t0v3ddvj64"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/Level2D.cs" id="1_042hb"]
+[ext_resource type="PackedScene" uid="uid://c4yhaqscgvsk7" path="res://Scenes/Player/Player2D.tscn" id="2_wxmts"]
+
+[node name="Level2D" type="Node2D"]
+script = ExtResource("1_042hb")
+
+[node name="Player2D" parent="." instance=ExtResource("2_wxmts")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.25, 0.25)

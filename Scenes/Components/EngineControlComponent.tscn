@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6r84upex14h4"]
+
+[ext_resource type="Script" path="res://Scenes/Components/EngineControlComponent.cs" id="1_8ksdx"]
+
+[node name="EngineControlComponent" type="Node"]
+script = ExtResource("1_8ksdx")

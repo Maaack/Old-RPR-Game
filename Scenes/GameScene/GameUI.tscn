@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxkq10mmjl517"]
+
+[ext_resource type="Script" path="res://Scenes/GameScene/GameUI.gd" id="1_vn54u"]
+[ext_resource type="Script" path="res://App/Scripts/PauseMenuController.gd" id="2_bmhjc"]
+[ext_resource type="PackedScene" uid="uid://dt5ses55itjy4" path="res://Extras/Scenes/SuccessScreen/SuccessScreen.tscn" id="2_p81qm"]
+[ext_resource type="PackedScene" uid="uid://cp3p3kqcjh0me" path="res://Extras/Scenes/FailureScreen/FailureScreen.tscn" id="3_gmq5y"]
+[ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Extras/Scenes/Menus/PauseMenu/PauseMenu.tscn" id="3_n6jen"]
+[ext_resource type="Script" path="res://Extras/Scripts/LevelLoader.gd" id="7_dgyvu"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vn54u")
+win_scene = ExtResource("2_p81qm")
+lose_scene = ExtResource("3_gmq5y")
+
+[node name="PauseMenuController" type="Node" parent="."]
+script = ExtResource("2_bmhjc")
+pause_menu_packed = ExtResource("3_n6jen")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
+script = ExtResource("7_dgyvu")
+level_container = NodePath("../SubViewportContainer/SubViewport")
+files = Array[String](["res://Scenes/Levels/Level2D.tscn"])
+directory = "res://Scenes/Levels"
+
+[connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]
+[connection signal="levels_finished" from="LevelLoader" to="." method="_on_level_loader_levels_finished"]

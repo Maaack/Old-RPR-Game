@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4yhaqscgvsk7"]
+
+[ext_resource type="Script" path="res://Scenes/Player/Player2D.cs" id="1_71rcx"]
+[ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="2_nubly"]
+[ext_resource type="PackedScene" uid="uid://byhdlnkiw5onm" path="res://Scenes/Components/PilotInputComponent.tscn" id="3_wpgb4"]
+[ext_resource type="PackedScene" uid="uid://6r84upex14h4" path="res://Scenes/Components/EngineControlComponent.tscn" id="4_bl5nt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kcicj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7p3j"]
+atlas = ExtResource("2_nubly")
+region = Rect2(344, 1050, 136, 84.4204)
+
+[node name="Player2D" type="RigidBody2D"]
+script = ExtResource("1_71rcx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kcicj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_i7p3j")
+
+[node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
+
+[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("4_bl5nt")]
+PilotInputComponent = NodePath("../PilotInputComponent")
+Body2D = NodePath("..")
+EngineForce = 1.0
