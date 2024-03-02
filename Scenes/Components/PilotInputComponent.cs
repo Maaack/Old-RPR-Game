@@ -8,6 +8,7 @@ public partial class PilotInputComponent : ComponentBase
 	const String BackwardInputAction = "backward";
 	const String TurnLeftInputAction = "turn_left";
 	const String TurnRightInputAction = "turn_right";
+	const String PrimaryFireInputAction = "primary_fire";
 
 	public enum Directions
 	{
@@ -26,7 +27,11 @@ public partial class PilotInputComponent : ComponentBase
 	[Signal]
 	public delegate void DirectionPressedEventHandler(int Direction);
 	[Signal]
-	public delegate void DirectionReleasedEventHandler(int Direction); 
+	public delegate void DirectionReleasedEventHandler(int Direction);
+	[Signal]
+	public delegate void PrimaryFirePressedEventHandler();
+	[Signal]
+	public delegate void PrimaryFireReleasedEventHandler();
 	public override void _Input(InputEvent @event)
 	{
 		foreach (var (inputAction, inputDirection) in ActionInputDirectionMap)
@@ -39,6 +44,14 @@ public partial class PilotInputComponent : ComponentBase
 			{
 				EmitSignal(SignalName.DirectionReleased, inputDirection);
 			}
+		}
+		if (@event.IsActionPressed(PrimaryFireInputAction))
+		{
+			EmitSignal(SignalName.PrimaryFirePressed);
+		} 
+		else if (@event.IsActionReleased(PrimaryFireInputAction))
+		{
+			EmitSignal(SignalName.PrimaryFireReleased);
 		}
 	}
 

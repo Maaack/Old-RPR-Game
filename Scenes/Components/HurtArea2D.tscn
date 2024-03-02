@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy34rr3buwvtf"]
+
+[ext_resource type="Script" path="res://Scenes/Components/HurtArea2D.cs" id="1_imwiy"]
+
+[node name="HurtArea2D" type="Area2D"]
+script = ExtResource("1_imwiy")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

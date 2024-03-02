@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4yhaqscgvsk7"]
+[gd_scene load_steps=9 format=3 uid="uid://c4yhaqscgvsk7"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player2D.cs" id="1_71rcx"]
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="2_nubly"]
 [ext_resource type="PackedScene" uid="uid://byhdlnkiw5onm" path="res://Scenes/Components/PilotInputComponent.tscn" id="3_wpgb4"]
 [ext_resource type="PackedScene" uid="uid://6r84upex14h4" path="res://Scenes/Components/EngineControlComponent.tscn" id="4_bl5nt"]
+[ext_resource type="PackedScene" uid="uid://ryv1niaq74gt" path="res://Scenes/Components/ShootingControlComponent.tscn" id="5_tcsau"]
+[ext_resource type="PackedScene" uid="uid://b4qyvrdegd2st" path="res://Scenes/Bullets/Bullet2D.tscn" id="6_vhtmn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kcicj"]
 
@@ -27,3 +29,9 @@ flip_v = true
 PilotInputComponent = NodePath("../PilotInputComponent")
 Body2D = NodePath("..")
 EngineForce = 8.0
+
+[node name="ShootingControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("5_tcsau")]
+PilotInputComponent = NodePath("../PilotInputComponent")
+Body2D = NodePath("..")
+BulletScene = ExtResource("6_vhtmn")
+GunForce = 500.0
