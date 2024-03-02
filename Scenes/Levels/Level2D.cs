@@ -8,7 +8,7 @@ public partial class Level2D : Node2D
 	[Signal]
 	public delegate void LevelLostEventHandler();
 	[Signal]
-	public delegate void ScoreChangedEventHandler(int deltaValue);
+	public delegate void ScoreUpdatedEventHandler(int deltaValue);
 	[Export]
 	public Vector2 WorldSize = new Vector2(640, 360);
 	[Export]
@@ -34,7 +34,7 @@ public partial class Level2D : Node2D
 	private void OnAsteroidDestroyed()
 	{
 		destroyedAsteroidCount += 1;
-		EmitSignal(SignalName.ScoreChanged, 10);
+		EmitSignal(SignalName.ScoreUpdated, 10);
 		CheckLevelSuccess();
 	}
 	public override void _Ready()
@@ -49,7 +49,6 @@ public partial class Level2D : Node2D
 				asteroidChild.TreeExited += OnAsteroidDestroyed;
 			}
 		}
-
 	}
 
 	public override void _Process(double delta)
