@@ -7,14 +7,49 @@ public partial class Level2D : Node2D
 	public delegate void LevelWonEventHandler();
 	[Signal]
 	public delegate void LevelLostEventHandler();
+	[Signal]
+	public delegate void ScoreChangedEventHandler(int deltaValue);
 	[Export]
 	public Vector2 WorldSize = new Vector2(640, 360);
 	[Export]
 	public float WorldSizeMod = 1.0f;
 	protected Node2D Player;
+	
+	private int totalAsteroidCount;
+	private int destroyedAsteroidCount;
+
+	private bool AllAsteroidsDestroyed()
+	{
+		return totalAsteroidCount <= destroyedAsteroidCount;
+	}
+
+	private void CheckLevelSuccess()
+	{
+		if (AllAsteroidsDestroyed())
+		{
+			EmitSignal(SignalName.LevelWon);
+		}
+	}
+
+	private void OnAsteroidDestroyed()
+	{
+		destroyedAsteroidCount += 1;
+		EmitSignal(SignalName.ScoreChanged, 10);
+		CheckLevelSuccess();
+	}
 	public override void _Ready()
 	{
 		Player = GetNode<Node2D>("%Player2D");
+		var childNodes = GetChildren();
+		foreach ( Node2D child in childNodes )
+		{
+			if ( child is Asteroid2D asteroidChild )
+			{
+				totalAsteroidCount += 1;
+				asteroidChild.TreeExited += OnAsteroidDestroyed;
+			}
+		}
+
 	}
 
 	public override void _Process(double delta)
