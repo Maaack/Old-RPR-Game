@@ -13,6 +13,8 @@ public partial class Level2D : Node2D
 	public Vector2 WorldSize = new Vector2(640, 360);
 	[Export]
 	public float WorldSizeMod = 1.0f;
+	[Export]
+	public PackedScene AsteroidScene;
 	protected Node2D Player;
 	
 	private int totalAsteroidCount;
@@ -37,18 +39,28 @@ public partial class Level2D : Node2D
 		EmitSignal(SignalName.ScoreUpdated, 10);
 		CheckLevelSuccess();
 	}
+
+	private void ConnectAsteroid(Node body2D)
+	{
+		if ( body2D is Asteroid2D asteroidChild )
+		{
+			totalAsteroidCount += 1;
+			asteroidChild.TreeExited += OnAsteroidDestroyed;
+			if (AsteroidScene != null)
+			{
+				asteroidChild.PartScene = AsteroidScene;
+			}
+		}
+	}
+
+	private void OnChildEnteredTree(Node node)
+	{
+		ConnectAsteroid(node);
+	}
+
 	public override void _Ready()
 	{
 		Player = GetNode<Node2D>("%Player2D");
-		var childNodes = GetChildren();
-		foreach ( Node2D child in childNodes )
-		{
-			if ( child is Asteroid2D asteroidChild )
-			{
-				totalAsteroidCount += 1;
-				asteroidChild.TreeExited += OnAsteroidDestroyed;
-			}
-		}
 	}
 
 	public override void _Process(double delta)

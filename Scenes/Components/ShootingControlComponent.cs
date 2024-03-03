@@ -60,6 +60,7 @@ public partial class ShootingControlComponent : Node2D
 		body2D.GetParent().AddChild(bulletInstance);
 		HeatUpPrimaryWeapon();
 	}
+	
 	public override void _Ready(){
 		if (body2D == null)
 		{
