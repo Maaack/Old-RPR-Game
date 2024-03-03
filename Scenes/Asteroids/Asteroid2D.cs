@@ -73,6 +73,7 @@ public partial class Asteroid2D : RigidBody2D
 		var circleShape1 = collisionShapeNode1.Shape.Duplicate() as CircleShape2D;
 		var circleShape2 = collisionShapeNode2.Shape.Duplicate() as CircleShape2D;
 		var scaleMod = GetScaleModifier();
+		Mass *= scaleMod;
 		spriteNode.Scale = Vector2.One * scaleMod;
 		circleShape1.Radius *= scaleMod;
 		circleShape2.Radius *= scaleMod;

@@ -15,6 +15,7 @@ region = Rect2(214, 832, 212, 218)
 radius = 108.0
 
 [node name="Asteroid2D" type="RigidBody2D"]
+mass = 100.0
 script = ExtResource("1_obly5")
 SplitForce = 100.0
 
