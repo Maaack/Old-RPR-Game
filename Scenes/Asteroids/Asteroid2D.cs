@@ -15,6 +15,10 @@ public partial class Asteroid2D : RigidBody2D
 	public PackedScene PartScene;
 	[Export]
 	public Sizes Size = Sizes.Large;
+	[Export]
+	public int SplitParts = 2;
+	[Export]
+	public float SplitForce = 1.0f;
 
 	private Godot.Collections.Dictionary SizeScaleMap = new Godot.Collections.Dictionary{
 		{(int)Sizes.Smallest, 0.125f},
@@ -24,11 +28,12 @@ public partial class Asteroid2D : RigidBody2D
 		{(int)Sizes.Largest, 2.0f},
 	};
 	
-	private RigidBody2D SpawnPart()
+	private RigidBody2D SpawnPart(Vector2 offsetPosition, Vector2 offsetVelocity)
 	{
 		var partInstance = PartScene.Instantiate<RigidBody2D>();
 		partInstance.Transform = GetTransform();
-		partInstance.LinearVelocity = LinearVelocity;
+		partInstance.Position += offsetPosition;
+		partInstance.LinearVelocity = LinearVelocity + offsetVelocity;
 		partInstance.AngularVelocity = AngularVelocity * 2;
 		if (partInstance is Asteroid2D asteroidPart)
 		{
@@ -38,26 +43,47 @@ public partial class Asteroid2D : RigidBody2D
 		return partInstance;
 	}
 	
-	private void OnHurtArea2DDamageReceived(double damageAmount)
+	private float GetScaleModifier()
+	{
+		return (float)SizeScaleMap[(int)Size];
+	}
+	
+	private void OnHurtArea2DDamageReceived(double damageAmount, double damageAngle)
 	{
 		QueueFree();
 		if ( Size > 0 )
 		{
-			var partInstance = SpawnPart();
+			var partAngleDifference = (2.0f * Math.PI) / (float)SplitParts;
+			for ( int i = 0 ; i < SplitParts ; i ++ )
+			{
+				var splitAngle = (float)((partAngleDifference * i) + (partAngleDifference/2) + damageAngle);
+				var positionOffset = Vector2.FromAngle(splitAngle) * 10.0f * GetScaleModifier();
+				var velocityOffset = Vector2.FromAngle(splitAngle) * SplitForce;
+				var partInstance = SpawnPart(positionOffset, velocityOffset);
+			}
+
 		}
 	}
 
-	private void UpdateSpriteScale()
+	private void UpdateAsteroidScale()
 	{
 		var spriteNode = GetNode<Sprite2D>("Sprite2D");
-		var scale = (float)SizeScaleMap[(int)Size];
-		spriteNode.Scale = Vector2.One * scale;
+		var collisionShapeNode1 = GetNode<CollisionShape2D>("CollisionShape2D");
+		var collisionShapeNode2 = GetNode<CollisionShape2D>("HurtArea2D/CollisionShape2D");
+		var circleShape1 = collisionShapeNode1.Shape.Duplicate() as CircleShape2D;
+		var circleShape2 = collisionShapeNode2.Shape.Duplicate() as CircleShape2D;
+		var scaleMod = GetScaleModifier();
+		spriteNode.Scale = Vector2.One * scaleMod;
+		circleShape1.Radius *= scaleMod;
+		circleShape2.Radius *= scaleMod;
+		collisionShapeNode1.Shape = circleShape1;
+		collisionShapeNode2.Shape = circleShape2;
 	}
 
 	public override void _Ready()
 	{
 		base._Ready();
-		UpdateSpriteScale();
+		UpdateAsteroidScale();
 	}
 }
 
