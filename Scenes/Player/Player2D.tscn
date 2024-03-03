@@ -35,3 +35,4 @@ PilotInputComponent = NodePath("../PilotInputComponent")
 Body2D = NodePath("..")
 BulletScene = ExtResource("6_vhtmn")
 GunForce = 500.0
+CoolDownTime = 0.25

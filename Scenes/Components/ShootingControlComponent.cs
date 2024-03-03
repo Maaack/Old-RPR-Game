@@ -31,6 +31,7 @@ public partial class ShootingControlComponent : Node2D
 	public PackedScene BulletScene;
 	[Export]
 	public float GunForce = 1.0f;
+	[Export]
 	public float CoolDownTime = 1.0f;
 	private bool PrimaryFireIsCooled = true;
 	private bool PrimaryFireOn = false;
@@ -60,7 +61,7 @@ public partial class ShootingControlComponent : Node2D
 		body2D.GetParent().AddChild(bulletInstance);
 		HeatUpPrimaryWeapon();
 	}
-	
+
 	public override void _Ready(){
 		if (body2D == null)
 		{
