@@ -8,6 +8,7 @@
 texture_filter = 1
 script = ExtResource("1_042hb")
 WorldSizeMod = 4.0
+PlayerScene = ExtResource("2_wxmts")
 AsteroidScene = ExtResource("2_n1iud")
 
 [node name="Player2D" parent="." instance=ExtResource("2_wxmts")]

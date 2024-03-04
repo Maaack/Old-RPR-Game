@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxkq10mmjl517"]
+[gd_scene load_steps=9 format=3 uid="uid://dxkq10mmjl517"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameUI.gd" id="1_vn54u"]
 [ext_resource type="Script" path="res://App/Scripts/PauseMenuController.gd" id="2_bmhjc"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cp3p3kqcjh0me" path="res://Extras/Scenes/FailureScreen/FailureScreen.tscn" id="3_gmq5y"]
 [ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Extras/Scenes/Menus/PauseMenu/PauseMenu.tscn" id="3_n6jen"]
 [ext_resource type="Script" path="res://Extras/Scripts/LevelLoader.gd" id="7_dgyvu"]
+[ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="7_xxykc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6en2c"]
+atlas = ExtResource("7_xxykc")
+region = Rect2(567, 191, 100, 94)
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -69,6 +74,30 @@ offset_left = -168.0
 offset_bottom = 20.0
 grow_horizontal = 0
 text = "Score: 00000000"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 53.0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(25, 23.5)
+layout_mode = 2
+texture = SubResource("AtlasTexture_6en2c")
+expand_mode = 1
+flip_v = true
+
+[node name="LivesLabel" type="Label" parent="MarginContainer/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "x0"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]
 [connection signal="levels_finished" from="LevelLoader" to="." method="_on_level_loader_levels_finished"]

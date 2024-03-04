@@ -8,21 +8,42 @@ public partial class Level2D : Node2D
 	[Signal]
 	public delegate void LevelLostEventHandler();
 	[Signal]
-	public delegate void ScoreUpdatedEventHandler(int deltaValue);
+	public delegate void ScoreUpdatedEventHandler(int scoreDelta);
+	[Signal]
+	public delegate void LivesUpdatedEventHandler(int livesValue);
 	[Export]
 	public Vector2 WorldSize = new Vector2(640, 360);
 	[Export]
 	public float WorldSizeMod = 1.0f;
 	[Export]
+	public int PlayerLives = 3;
+	[Export]
+	public PackedScene PlayerScene;
+	[Export]
 	public PackedScene AsteroidScene;
 	protected Node2D Player;
-	
+	private int currentPlayerLives;
+	public int CurrentPlayerLives 
+	{
+		get {
+			return currentPlayerLives;
+		}
+		set {
+			currentPlayerLives = value;
+			EmitSignal(SignalName.LivesUpdated, currentPlayerLives);
+		}
+	}
 	private int totalAsteroidCount;
 	private int destroyedAsteroidCount;
 
 	private bool AllAsteroidsDestroyed()
 	{
 		return totalAsteroidCount <= destroyedAsteroidCount;
+	}
+
+	private bool HasPlayerLives()
+	{
+		return currentPlayerLives > 0;
 	}
 
 	private void CheckLevelSuccess()
@@ -37,6 +58,13 @@ public partial class Level2D : Node2D
 	{
 		if ( node is Player2D playerNode )
 		{
+			if ( HasPlayerLives() && PlayerScene != null)
+			{
+				CurrentPlayerLives -= 1;
+				var playerInstance = PlayerScene.Instantiate();
+				CallDeferred("add_child", playerInstance);
+				return;
+			}
 			EmitSignal(SignalName.LevelLost);
 		}
 	}
@@ -77,6 +105,7 @@ public partial class Level2D : Node2D
 	public override void _Ready()
 	{
 		Player = GetNode<Node2D>("%Player2D");
+		CurrentPlayerLives = PlayerLives;
 	}
 
 	public override void _Process(double delta)
