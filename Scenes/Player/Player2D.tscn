@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4yhaqscgvsk7"]
+[gd_scene load_steps=12 format=3 uid="uid://c4yhaqscgvsk7"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player2D.cs" id="1_71rcx"]
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="2_nubly"]
@@ -12,6 +12,45 @@
 atlas = ExtResource("2_nubly")
 region = Rect2(567, 191, 100, 94)
 
+[sub_resource type="Animation" id="Animation_4otke"]
+resource_name = "SPAWN"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_2skmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddhj7"]
+_data = {
+"RESET": SubResource("Animation_2skmd"),
+"SPAWN": SubResource("Animation_4otke")
+}
+
 [node name="Player2D" type="RigidBody2D"]
 script = ExtResource("1_71rcx")
 
@@ -23,6 +62,7 @@ texture = SubResource("AtlasTexture_i7p3j")
 flip_v = true
 
 [node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
+Enabled = false
 
 [node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
@@ -39,8 +79,15 @@ CoolDownTime = 0.02
 
 [node name="HurtArea2D" parent="." instance=ExtResource("7_kkpsi")]
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtArea2D"]
 polygon = PackedVector2Array(0, -48, 48, 40, -48, 40)
+
+[node name="SpawnAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ddhj7")
+}
+autoplay = "SPAWN"
 
 [connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]

@@ -21,7 +21,7 @@ public partial class Level2D : Node2D
 	public PackedScene PlayerScene;
 	[Export]
 	public PackedScene AsteroidScene;
-	protected Node2D Player;
+	protected Player2D Player;
 	private int currentPlayerLives;
 	public int CurrentPlayerLives 
 	{
@@ -104,7 +104,8 @@ public partial class Level2D : Node2D
 
 	public override void _Ready()
 	{
-		Player = GetNode<Node2D>("%Player2D");
+		Player = GetNode<Player2D>("%Player2D");
+		Player.SetActive();
 		CurrentPlayerLives = PlayerLives;
 	}
 

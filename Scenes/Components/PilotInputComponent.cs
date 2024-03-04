@@ -32,8 +32,11 @@ public partial class PilotInputComponent : ComponentBase
 	public delegate void PrimaryFirePressedEventHandler();
 	[Signal]
 	public delegate void PrimaryFireReleasedEventHandler();
+	[Export]
+	public bool Enabled = true;
 	public override void _Input(InputEvent @event)
 	{
+		if ( !Enabled ) { return; }
 		foreach (var (inputAction, inputDirection) in ActionInputDirectionMap)
 		{
 			if (@event.IsActionPressed((string)inputAction))
