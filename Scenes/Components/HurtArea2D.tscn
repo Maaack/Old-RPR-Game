@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://Scenes/Components/HurtArea2D.cs" id="1_imwiy"]
 
 [node name="HurtArea2D" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource("1_imwiy")
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
