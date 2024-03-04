@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://2nt4oi48i4b7"]
+[gd_scene load_steps=7 format=3 uid="uid://2nt4oi48i4b7"]
 
 [ext_resource type="Script" path="res://Scenes/Asteroids/Asteroid2D.cs" id="1_obly5"]
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="1_s6cxs"]
 [ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="2_mb8vw"]
+[ext_resource type="PackedScene" uid="uid://c0a31iiml6v4x" path="res://Scenes/Components/HitArea2D.tscn" id="4_m8g1m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yu5js"]
 radius = 106.0
@@ -25,6 +26,12 @@ texture = SubResource("AtlasTexture_to8sy")
 [node name="HurtArea2D" parent="." instance=ExtResource("2_mb8vw")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D"]
+shape = SubResource("CircleShape2D_yu5js")
+
+[node name="HitArea2D" parent="." instance=ExtResource("4_m8g1m")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
 shape = SubResource("CircleShape2D_yu5js")
 
 [connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]

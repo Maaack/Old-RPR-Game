@@ -33,6 +33,14 @@ public partial class Level2D : Node2D
 		}
 	}
 
+	private void DestroyPlayer(Node node)
+	{
+		if ( node is Player2D playerNode )
+		{
+			EmitSignal(SignalName.LevelLost);
+		}
+	}
+
 	private void DestroyAsteroid(Node node)
 	{
 		if ( node is Asteroid2D asteroidNode) {
@@ -63,6 +71,7 @@ public partial class Level2D : Node2D
 	private void OnChildExitedTree(Node node)
 	{
 		DestroyAsteroid(node);
+		DestroyPlayer(node);
 	}
 
 	public override void _Ready()

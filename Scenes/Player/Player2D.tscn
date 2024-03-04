@@ -6,18 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://6r84upex14h4" path="res://Scenes/Components/EngineControlComponent.tscn" id="4_bl5nt"]
 [ext_resource type="PackedScene" uid="uid://ryv1niaq74gt" path="res://Scenes/Components/ShootingControlComponent.tscn" id="5_tcsau"]
 [ext_resource type="PackedScene" uid="uid://b4qyvrdegd2st" path="res://Scenes/Bullets/Bullet2D.tscn" id="6_vhtmn"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kcicj"]
+[ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="7_kkpsi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7p3j"]
 atlas = ExtResource("2_nubly")
-region = Rect2(344, 1050, 136, 84.4204)
+region = Rect2(567, 191, 100, 94)
 
 [node name="Player2D" type="RigidBody2D"]
 script = ExtResource("1_71rcx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_kcicj")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -48, 48, 40, -48, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_i7p3j")
@@ -29,10 +28,19 @@ flip_v = true
 PilotInputComponent = NodePath("../PilotInputComponent")
 Body2D = NodePath("..")
 EngineForce = 8.0
+RotationalForceMod = 8.0
 
 [node name="ShootingControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("5_tcsau")]
 PilotInputComponent = NodePath("../PilotInputComponent")
 Body2D = NodePath("..")
 BulletScene = ExtResource("6_vhtmn")
 GunForce = 500.0
-CoolDownTime = 0.25
+CoolDownTime = 0.02
+
+[node name="HurtArea2D" parent="." instance=ExtResource("7_kkpsi")]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtArea2D"]
+polygon = PackedVector2Array(0, -48, 48, 40, -48, 40)
+
+[connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]

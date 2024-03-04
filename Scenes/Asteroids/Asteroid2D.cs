@@ -83,6 +83,7 @@ public partial class Asteroid2D : RigidBody2D
 		var spriteNode = GetNode<Sprite2D>("Sprite2D");
 		var collisionShapeNode1 = GetNode<CollisionShape2D>("CollisionShape2D");
 		var collisionShapeNode2 = GetNode<CollisionShape2D>("HurtArea2D/CollisionShape2D");
+		var collisionShapeNode3 = GetNode<CollisionShape2D>("HitArea2D/CollisionShape2D");
 		var circleShape = collisionShapeNode1.Shape.Duplicate() as CircleShape2D;
 		var scaleMod = GetScaleModifier();
 		Mass *= scaleMod;
@@ -90,6 +91,7 @@ public partial class Asteroid2D : RigidBody2D
 		circleShape.Radius *= scaleMod;
 		collisionShapeNode1.Shape = circleShape;
 		collisionShapeNode2.Shape = circleShape;
+		collisionShapeNode3.Shape = circleShape;
 	}
 
 	public override void _Ready()
