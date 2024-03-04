@@ -19,6 +19,12 @@ public partial class Asteroid2D : RigidBody2D
 	public int SplitParts = 2;
 	[Export]
 	public float SplitForce = 1.0f;
+	private bool Destroyed = false;
+
+	public bool IsDestroyed()
+	{
+		return Destroyed;
+	}
 
 	private Godot.Collections.Dictionary SizeScaleMap = new Godot.Collections.Dictionary{
 		{(int)Sizes.Smallest, 0.125f},
@@ -48,9 +54,15 @@ public partial class Asteroid2D : RigidBody2D
 		return (float)SizeScaleMap[(int)Size];
 	}
 	
+	private void Destroy()
+	{
+		if ( IsDestroyed() ) { return; }
+		Destroyed = true;
+		QueueFree();
+	}
 	private void OnHurtArea2DDamageReceived(double damageAmount, double damageAngle)
 	{
-		QueueFree();
+		if ( IsDestroyed() ) { return; }
 		if ( Size > 0 )
 		{
 			var partAngleDifference = (2.0f * Math.PI) / (float)SplitParts;
@@ -63,6 +75,7 @@ public partial class Asteroid2D : RigidBody2D
 			}
 
 		}
+		Destroy();
 	}
 
 	private void UpdateAsteroidScale()

@@ -33,11 +33,14 @@ public partial class Level2D : Node2D
 		}
 	}
 
-	private void OnAsteroidDestroyed()
+	private void DestroyAsteroid(Node node)
 	{
-		destroyedAsteroidCount += 1;
-		EmitSignal(SignalName.ScoreUpdated, 10);
-		CheckLevelSuccess();
+		if ( node is Asteroid2D asteroidNode) {
+			if ( !asteroidNode.IsDestroyed() ) { return; }
+			destroyedAsteroidCount += 1;
+			EmitSignal(SignalName.ScoreUpdated, 10);
+			CheckLevelSuccess();
+		}
 	}
 
 	private void ConnectAsteroid(Node body2D)
@@ -45,7 +48,6 @@ public partial class Level2D : Node2D
 		if ( body2D is Asteroid2D asteroidChild )
 		{
 			totalAsteroidCount += 1;
-			asteroidChild.TreeExited += OnAsteroidDestroyed;
 			if (AsteroidScene != null)
 			{
 				asteroidChild.PartScene = AsteroidScene;
@@ -56,6 +58,11 @@ public partial class Level2D : Node2D
 	private void OnChildEnteredTree(Node node)
 	{
 		ConnectAsteroid(node);
+	}
+
+	private void OnChildExitedTree(Node node)
+	{
+		DestroyAsteroid(node);
 	}
 
 	public override void _Ready()
