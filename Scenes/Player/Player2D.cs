@@ -25,4 +25,17 @@ public partial class Player2D : RigidBody2D
 		base._UnhandledInput(@event);
 		SetActive();
 	}
+
+	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+	{
+		base._IntegrateForces(state);
+		var children = GetChildren();
+		foreach (Node child in children)
+		{
+			if ( child is EngineComponent2D engineChild )
+			{
+				engineChild.IntegrateForces(state);
+			}
+		}
+	}
 }

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class EngineControlComponent : ComponentBase
@@ -16,6 +17,14 @@ public partial class EngineControlComponent : ComponentBase
 			pilotInputComponent.DirectionReleased += OnDirectionReleased;
 		}
 	}
+	[Export]
+	public Array<EngineComponent2D> ForwardEngines;
+	[Export]
+	public Array<EngineComponent2D> ReverseEngines;
+	[Export]
+	public Array<EngineComponent2D> TurnLeftEngines;
+	[Export]
+	public Array<EngineComponent2D> TurnRightEngines;
 	private RigidBody2D body2D;
 	[Export]
 	public RigidBody2D Body2D
@@ -51,8 +60,7 @@ public partial class EngineControlComponent : ComponentBase
 		var finalVelocityVector = new Vector2();
 		var finalRotationValue = 0.0f;
 		if (ForwardEngineOn)
-		{
-			
+		{	
 			finalVelocityVector += Vector2.Up.Rotated(body2D.Rotation);
 		}
 		if (ReverseEngineOn)
@@ -77,10 +85,16 @@ public partial class EngineControlComponent : ComponentBase
 	{
 		switch((PilotInputComponent.Directions)inputDirection){
 			case PilotInputComponent.Directions.Forward:
-				ForwardEngineOn = true;
+				foreach ( EngineComponent2D engine in ForwardEngines )
+				{
+					engine.Active = true;
+				}
 				break;
 			case PilotInputComponent.Directions.Back:
-				ReverseEngineOn = true;
+				foreach ( EngineComponent2D engine in ReverseEngines )
+				{
+					engine.Active = true;
+				}
 				break;
 			case PilotInputComponent.Directions.Left:
 				LeftTurnEngineOn = true;
@@ -95,10 +109,16 @@ public partial class EngineControlComponent : ComponentBase
 	{
 		switch((PilotInputComponent.Directions)inputDirection){
 			case PilotInputComponent.Directions.Forward:
-				ForwardEngineOn = false;
+				foreach ( EngineComponent2D engine in ForwardEngines )
+				{
+					engine.Active = false;
+				}
 				break;
 			case PilotInputComponent.Directions.Back:
-				ReverseEngineOn = false;
+				foreach ( EngineComponent2D engine in ReverseEngines )
+				{
+					engine.Active = false;
+				}
 				break;
 			case PilotInputComponent.Directions.Left:
 				LeftTurnEngineOn = false;

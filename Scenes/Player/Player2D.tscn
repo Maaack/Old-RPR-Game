@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4yhaqscgvsk7"]
+[gd_scene load_steps=13 format=3 uid="uid://c4yhaqscgvsk7"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player2D.cs" id="1_71rcx"]
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="2_nubly"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ryv1niaq74gt" path="res://Scenes/Components/ShootingControlComponent.tscn" id="5_tcsau"]
 [ext_resource type="PackedScene" uid="uid://b4qyvrdegd2st" path="res://Scenes/Bullets/Bullet2D.tscn" id="6_vhtmn"]
 [ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="7_kkpsi"]
+[ext_resource type="PackedScene" uid="uid://d3fx8dkuqa5nb" path="res://Scenes/Components/EngineComponent2D.tscn" id="8_q1fu0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7p3j"]
 atlas = ExtResource("2_nubly")
@@ -64,8 +65,12 @@ flip_v = true
 [node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
 Enabled = false
 
-[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("4_bl5nt")]
+[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines", "Body2D") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
+ForwardEngines = [NodePath("../ForwardEngineComponent")]
+ReverseEngines = [NodePath("../ReverseEngineComponent")]
+TurnLeftEngines = []
+TurnRightEngines = []
 Body2D = NodePath("..")
 EngineForce = 8.0
 RotationalForceMod = 8.0
@@ -89,5 +94,14 @@ libraries = {
 "": SubResource("AnimationLibrary_ddhj7")
 }
 autoplay = "SPAWN"
+
+[node name="ForwardEngineComponent" parent="." instance=ExtResource("8_q1fu0")]
+position = Vector2(0, 51)
+EngineForce = 8.0
+
+[node name="ReverseEngineComponent" parent="." instance=ExtResource("8_q1fu0")]
+position = Vector2(0, -57)
+rotation = 3.14159
+EngineForce = 8.0
 
 [connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]
