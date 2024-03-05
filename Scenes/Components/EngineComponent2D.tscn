@@ -11,5 +11,6 @@ region = Rect2(537, 301, 13, 21)
 script = ExtResource("1_j78gr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
 texture = SubResource("AtlasTexture_7e0gd")
 flip_v = true
