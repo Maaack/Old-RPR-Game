@@ -53,6 +53,7 @@ _data = {
 }
 
 [node name="Player2D" type="RigidBody2D"]
+can_sleep = false
 script = ExtResource("1_71rcx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -65,15 +66,12 @@ flip_v = true
 [node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
 Enabled = false
 
-[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines", "Body2D") instance=ExtResource("4_bl5nt")]
+[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
 ForwardEngines = [NodePath("../ForwardEngineComponent2D")]
 ReverseEngines = [NodePath("../ReverseEngineComponent2D")]
 TurnLeftEngines = [NodePath("../PortRightEngineComponent2D"), NodePath("../StarboardRightEngineComponent2D2"), NodePath("../BowRightEngineComponent2D")]
 TurnRightEngines = [NodePath("../PortLeftEngineComponent2D"), NodePath("../StarboardLeftEngineComponent2D2"), NodePath("../BowLeftEngineComponent2D")]
-Body2D = NodePath("..")
-EngineForce = 8.0
-RotationalForceMod = 8.0
 
 [node name="ShootingControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "Body2D") instance=ExtResource("5_tcsau")]
 PilotInputComponent = NodePath("../PilotInputComponent")

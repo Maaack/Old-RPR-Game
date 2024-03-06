@@ -18,13 +18,13 @@ public partial class EngineControlComponent : ComponentBase
 		}
 	}
 	[Export]
-	public Array<EngineComponent2D> ForwardEngines;
+	public Array<EngineComponent2D> ForwardEngines = new Array<EngineComponent2D>();
 	[Export]
-	public Array<EngineComponent2D> ReverseEngines;
+	public Array<EngineComponent2D> ReverseEngines = new Array<EngineComponent2D>();
 	[Export]
-	public Array<EngineComponent2D> TurnLeftEngines;
+	public Array<EngineComponent2D> TurnLeftEngines = new Array<EngineComponent2D>();
 	[Export]
-	public Array<EngineComponent2D> TurnRightEngines;
+	public Array<EngineComponent2D> TurnRightEngines = new Array<EngineComponent2D>();
 
 	private void OnDirectionPressed(int inputDirection)
 	{
