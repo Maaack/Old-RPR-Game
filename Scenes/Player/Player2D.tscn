@@ -69,15 +69,21 @@ Enabled = false
 
 [node name="EmergencyStabilityAssistComponent" parent="." instance=ExtResource("4_hhb68")]
 TriggerAngularVelocity = 12.566
+ResetAngularVelocity = 6.283
+
+[node name="InputIgnoreStabilityAssistComponent" parent="." instance=ExtResource("4_hhb68")]
+TriggerAngularVelocity = 6.283
+ResetAngularVelocity = 6.283
 
 [node name="IdleStabilityAssistComponent" parent="." instance=ExtResource("4_hhb68")]
 TriggerAngularVelocity = 0.031
 ResetAngularVelocity = 0.031
 
-[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "EmergencyStabilityAssistComponent", "IdleStabilityAssistComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines") instance=ExtResource("4_bl5nt")]
+[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "EmergencyStabilityAssistComponent", "IdleStabilityAssistComponent", "InputIgnoreStabilityAssistComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
 EmergencyStabilityAssistComponent = NodePath("../EmergencyStabilityAssistComponent")
 IdleStabilityAssistComponent = NodePath("../IdleStabilityAssistComponent")
+InputIgnoreStabilityAssistComponent = NodePath("../InputIgnoreStabilityAssistComponent")
 ForwardEngines = [NodePath("../ForwardEngineComponent2D")]
 ReverseEngines = [NodePath("../ReverseEngineComponent2D")]
 TurnLeftEngines = [NodePath("../PortRightEngineComponent2D"), NodePath("../StarboardRightEngineComponent2D2"), NodePath("../BowRightEngineComponent2D")]

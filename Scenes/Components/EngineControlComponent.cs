@@ -43,7 +43,19 @@ public partial class EngineControlComponent : ComponentBase
 			idleStabilityAssistComponent.DirectionReset += OnIdleReset;
 		}
 	}
+	private StabilityAssistComponent inputIgnoreStabilityAssistComponent;
 	[Export]
+	public StabilityAssistComponent InputIgnoreStabilityAssistComponent
+	{
+		get {
+			return inputIgnoreStabilityAssistComponent;
+		}
+		set {
+			inputIgnoreStabilityAssistComponent = value;
+			inputIgnoreStabilityAssistComponent.DirectionTriggered += OnInputIgnoreTriggered;
+			inputIgnoreStabilityAssistComponent.DirectionReset += OnInputIgnoreReset;
+		}
+	}	[Export]
 	public Array<EngineComponent2D> ForwardEngines = new Array<EngineComponent2D>();
 	[Export]
 	public Array<EngineComponent2D> ReverseEngines = new Array<EngineComponent2D>();
@@ -59,55 +71,43 @@ public partial class EngineControlComponent : ComponentBase
 	private bool RightEmergencyOn = false;
 	private bool LeftIdleOn = false;
 	private bool RightIdleOn = false;
+	private bool LeftIgnoreInputOn = false;
+	private bool RightIgnoreInputOn = false;
 	private bool ForwardEngineOn = false;
 	private bool ReverseEngineOn = false;
 	private bool LeftTurnEngineOn = false;
 	private bool RightTurnEngineOn = false;
 
+	private bool UpdateTurnState(bool currentState, bool InputOn, bool EmergencyOn, bool IdleOn, bool InputIgnoreOn, bool OtherInputOn, bool OtherEmergencyOn, Array<EngineComponent2D> Engines)
+	{
+		if ( EmergencyOn ||
+		( InputOn && !OtherEmergencyOn && !InputIgnoreOn) || 
+		( IdleOn && !OtherInputOn && !OtherEmergencyOn ) )
+		{
+			if ( !currentState )
+			{
+				currentState = true;
+				foreach ( EngineComponent2D engine in Engines )
+				{
+					engine.Active = true;
+				}
+
+			}
+		} else if ( currentState ) 
+		{
+			currentState = false;
+			foreach ( EngineComponent2D engine in Engines )
+			{
+				engine.Active = false;
+			}
+
+		}
+		return currentState;
+	}
 	private void OnStateUpdated()
 	{
-		if ( LeftEmergencyOn ||
-		( LeftInputOn && !RightEmergencyOn ) || 
-		( LeftIdleOn && !RightInputOn && !RightEmergencyOn ) )
-		{
-			if ( !LeftTurnEngineOn )
-			{
-				LeftTurnEngineOn = true;
-				foreach ( EngineComponent2D engine in TurnLeftEngines )
-				{
-					engine.Active = true;
-				}
-
-			}
-		} else if ( LeftTurnEngineOn ) 
-		{
-			LeftTurnEngineOn = false;
-			foreach ( EngineComponent2D engine in TurnLeftEngines )
-			{
-				engine.Active = false;
-			}
-
-		}
-		if ( RightEmergencyOn ||
-		( RightInputOn && !LeftEmergencyOn ) || 
-		( RightIdleOn && !LeftInputOn && !LeftEmergencyOn ) )
-		{
-			if ( !RightTurnEngineOn )
-			{
-				RightTurnEngineOn = true;
-				foreach ( EngineComponent2D engine in TurnRightEngines )
-				{
-					engine.Active = true;
-				}
-			}
-		} else if ( RightTurnEngineOn ) 
-		{
-			RightTurnEngineOn = false;
-			foreach ( EngineComponent2D engine in TurnRightEngines )
-			{
-				engine.Active = false;
-			}
-		}
+		LeftTurnEngineOn = UpdateTurnState(LeftTurnEngineOn, LeftInputOn, LeftEmergencyOn, LeftIdleOn, LeftIgnoreInputOn, RightInputOn, RightEmergencyOn, TurnLeftEngines);
+		RightTurnEngineOn = UpdateTurnState(RightTurnEngineOn, RightInputOn, RightEmergencyOn, RightIdleOn, RightIgnoreInputOn, LeftInputOn, LeftEmergencyOn, TurnRightEngines);
 	}
 	private void OnEmergencyTriggered(int inputDirection)
 	{
@@ -156,6 +156,32 @@ public partial class EngineControlComponent : ComponentBase
 				break;
 			case Constants.Directions.Right:
 				RightIdleOn = false;
+				break;
+		}
+		OnStateUpdated();
+	}
+
+	private void OnInputIgnoreTriggered(int inputDirection)
+	{
+		switch((Constants.Directions)inputDirection){
+			case Constants.Directions.Left:
+				RightIgnoreInputOn = true;
+				break;
+			case Constants.Directions.Right:
+				LeftIgnoreInputOn = true;
+				break;
+		}
+		OnStateUpdated();	
+	}
+
+	private void OnInputIgnoreReset(int inputDirection)
+	{
+		switch((Constants.Directions)inputDirection){
+			case Constants.Directions.Left:
+				RightIgnoreInputOn = false;
+				break;
+			case Constants.Directions.Right:
+				LeftIgnoreInputOn = false;
 				break;
 		}
 		OnStateUpdated();
