@@ -15,9 +15,9 @@ public partial class StabilityAssistComponent : ComponentBase
 	private bool RightSpinOn = false;
 	private bool LeftSpinOn = false;
 
-	public void IntegrateForces(PhysicsDirectBodyState2D state2D)
+	public void PhysicsProcess(RigidBody2D body2D)
 	{
-		var AngularVelocity = state2D.AngularVelocity;
+		var AngularVelocity = body2D.AngularVelocity;
 		if ( Math.Abs( AngularVelocity ) > TriggerAngularVelocity )
 		{
 			if ( AngularVelocity < 0 && !RightSpinOn )

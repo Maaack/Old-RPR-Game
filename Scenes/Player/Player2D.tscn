@@ -54,7 +54,6 @@ _data = {
 }
 
 [node name="Player2D" type="RigidBody2D"]
-can_sleep = false
 script = ExtResource("1_71rcx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

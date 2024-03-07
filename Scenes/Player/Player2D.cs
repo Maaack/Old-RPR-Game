@@ -26,19 +26,19 @@ public partial class Player2D : RigidBody2D
 		SetActive();
 	}
 
-	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+	public override void _PhysicsProcess(double delta)
 	{
-		base._IntegrateForces(state);
+		base._PhysicsProcess(delta);
 		var children = GetChildren();
 		foreach (Node child in children)
 		{
 			if ( child is EngineComponent2D engineChild )
 			{
-				engineChild.IntegrateForces(state);
+				engineChild.PhysicsProcess(this);
 			}
 			else if ( child is StabilityAssistComponent stabilityAssistChild )
 			{
-				stabilityAssistChild.IntegrateForces(state);
+				stabilityAssistChild.PhysicsProcess(this);
 			}
 		}
 	}
