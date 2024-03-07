@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhoshy4w205hm"]
+
+[ext_resource type="PackedScene" uid="uid://t4t0v3ddvj64" path="res://Scenes/Levels/Level2D.tscn" id="1_j8y3b"]
+[ext_resource type="PackedScene" uid="uid://2nt4oi48i4b7" path="res://Scenes/Asteroids/Asteroid2D.tscn" id="2_7w0x1"]
+
+[node name="Level2D" instance=ExtResource("1_j8y3b")]
+
+[node name="Camera2D" parent="." index="1"]
+texture_filter = 1
+
+[node name="Asteroid2D" parent="." index="2" instance=ExtResource("2_7w0x1")]
+position = Vector2(-702, -500)
+angular_velocity = -0.261799
+
+[node name="Asteroid2D2" parent="." index="3" instance=ExtResource("2_7w0x1")]
+position = Vector2(933, -455)
+angular_velocity = -0.523599
+
+[node name="Asteroid2D3" parent="." index="4" instance=ExtResource("2_7w0x1")]
+position = Vector2(835, 327)
+angular_velocity = 0.523599
+
+[node name="Asteroid2D4" parent="." index="5" instance=ExtResource("2_7w0x1")]
+position = Vector2(-818, 560)
+angular_velocity = 0.523599
