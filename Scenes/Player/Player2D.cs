@@ -36,6 +36,10 @@ public partial class Player2D : RigidBody2D
 			{
 				engineChild.IntegrateForces(state);
 			}
+			else if ( child is StabilityAssistComponent stabilityAssistChild )
+			{
+				stabilityAssistChild.IntegrateForces(state);
+			}
 		}
 	}
 }

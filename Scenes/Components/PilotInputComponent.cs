@@ -10,19 +10,11 @@ public partial class PilotInputComponent : ComponentBase
 	const String TurnRightInputAction = "turn_right";
 	const String PrimaryFireInputAction = "primary_fire";
 
-	public enum Directions
-	{
-		Forward,
-		Back,
-		Left,
-		Right
-	}
-
 	private Godot.Collections.Dictionary ActionInputDirectionMap = new Godot.Collections.Dictionary{
-		{ForwardInputAction, (int)Directions.Forward},
-		{BackwardInputAction, (int)Directions.Back},
-		{TurnLeftInputAction, (int)Directions.Left},
-		{TurnRightInputAction, (int)Directions.Right},
+		{ForwardInputAction, (int)Constants.Directions.Forward},
+		{BackwardInputAction, (int)Constants.Directions.Back},
+		{TurnLeftInputAction, (int)Constants.Directions.Left},
+		{TurnRightInputAction, (int)Constants.Directions.Right},
 	};
 	[Signal]
 	public delegate void DirectionPressedEventHandler(int Direction);

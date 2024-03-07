@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5sq7py3bjuym"]
+
+[ext_resource type="Script" path="res://Scenes/Components/StabilityAssistComponent.cs" id="1_3sorh"]
+
+[node name="StabilityAssistComponent" type="Node"]
+script = ExtResource("1_3sorh")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4yhaqscgvsk7"]
+[gd_scene load_steps=14 format=3 uid="uid://c4yhaqscgvsk7"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player2D.cs" id="1_71rcx"]
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="2_nubly"]
 [ext_resource type="PackedScene" uid="uid://byhdlnkiw5onm" path="res://Scenes/Components/PilotInputComponent.tscn" id="3_wpgb4"]
 [ext_resource type="PackedScene" uid="uid://6r84upex14h4" path="res://Scenes/Components/EngineControlComponent.tscn" id="4_bl5nt"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/StabilityAssistComponent.tscn" id="4_hhb68"]
 [ext_resource type="PackedScene" uid="uid://ryv1niaq74gt" path="res://Scenes/Components/ShootingControlComponent.tscn" id="5_tcsau"]
 [ext_resource type="PackedScene" uid="uid://b4qyvrdegd2st" path="res://Scenes/Bullets/Bullet2D.tscn" id="6_vhtmn"]
 [ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="7_kkpsi"]
@@ -12,6 +13,21 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7p3j"]
 atlas = ExtResource("2_nubly")
 region = Rect2(567, 191, 100, 94)
+
+[sub_resource type="Animation" id="Animation_2skmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_4otke"]
 resource_name = "SPAWN"
@@ -29,21 +45,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
-}
-
-[sub_resource type="Animation" id="Animation_2skmd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ddhj7"]
@@ -66,8 +67,17 @@ flip_v = true
 [node name="PilotInputComponent" parent="." instance=ExtResource("3_wpgb4")]
 Enabled = false
 
-[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines") instance=ExtResource("4_bl5nt")]
+[node name="EmergencyStabilityAssistComponent" parent="." instance=ExtResource("4_hhb68")]
+TriggerAngularVelocity = 12.566
+
+[node name="IdleStabilityAssistComponent" parent="." instance=ExtResource("4_hhb68")]
+TriggerAngularVelocity = 0.031
+ResetAngularVelocity = 0.031
+
+[node name="EngineControlComponent" parent="." node_paths=PackedStringArray("PilotInputComponent", "EmergencyStabilityAssistComponent", "IdleStabilityAssistComponent", "ForwardEngines", "ReverseEngines", "TurnLeftEngines", "TurnRightEngines") instance=ExtResource("4_bl5nt")]
 PilotInputComponent = NodePath("../PilotInputComponent")
+EmergencyStabilityAssistComponent = NodePath("../EmergencyStabilityAssistComponent")
+IdleStabilityAssistComponent = NodePath("../IdleStabilityAssistComponent")
 ForwardEngines = [NodePath("../ForwardEngineComponent2D")]
 ReverseEngines = [NodePath("../ReverseEngineComponent2D")]
 TurnLeftEngines = [NodePath("../PortRightEngineComponent2D"), NodePath("../StarboardRightEngineComponent2D2"), NodePath("../BowRightEngineComponent2D")]
