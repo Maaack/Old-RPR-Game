@@ -116,32 +116,39 @@ public partial class Level2D : Node2D
 		var fullWorldSize = WorldSizeMod * WorldSize;
 		foreach ( Node2D child in childNodes )
 		{
-			if ( child is RigidBody2D rigidChild )
+			if ( child is PhysicsBody2D physicsChild )
 			{
-				var translatedVector = rigidChild.Position;
-				if ( rigidChild.Position.X < - fullWorldSize.X / 2 )
+				var translatedVector = physicsChild.Position;
+				if ( physicsChild.Position.X < - fullWorldSize.X / 2 )
 				{
-					translatedVector.X = fullWorldSize.X / 2 + (rigidChild.Position.X + fullWorldSize.X / 2);
+					translatedVector.X = fullWorldSize.X / 2 + (physicsChild.Position.X + fullWorldSize.X / 2);
 				} 
-				else if ( rigidChild.Position.X > fullWorldSize.X / 2 )
+				else if ( physicsChild.Position.X > fullWorldSize.X / 2 )
 				{
-					translatedVector.X = -fullWorldSize.X / 2 + (rigidChild.Position.X - fullWorldSize.X / 2);
+					translatedVector.X = -fullWorldSize.X / 2 + (physicsChild.Position.X - fullWorldSize.X / 2);
 				}
-				if ( rigidChild.Position.Y < - fullWorldSize.Y / 2  )
+				if ( physicsChild.Position.Y < - fullWorldSize.Y / 2  )
 				{
-					translatedVector.Y = fullWorldSize.Y / 2 + (rigidChild.Position.Y + fullWorldSize.Y / 2);
+					translatedVector.Y = fullWorldSize.Y / 2 + (physicsChild.Position.Y + fullWorldSize.Y / 2);
 				} 
-				else if ( rigidChild.Position.Y > fullWorldSize.Y / 2 )
+				else if ( physicsChild.Position.Y > fullWorldSize.Y / 2 )
 				{
-					translatedVector.Y = -fullWorldSize.Y / 2 + (rigidChild.Position.Y - fullWorldSize.Y / 2);
+					translatedVector.Y = -fullWorldSize.Y / 2 + (physicsChild.Position.Y - fullWorldSize.Y / 2);
 				}
-				if (!(translatedVector - rigidChild.Position).IsZeroApprox())
+				if (!(translatedVector - physicsChild.Position).IsZeroApprox())
 				{
-					PhysicsServer2D.BodySetState(
-						rigidChild.GetRid(),
-						PhysicsServer2D.BodyState.Transform,
-						new Transform2D(rigidChild.Rotation, translatedVector)
-					);
+					if ( physicsChild is RigidBody2D rigidChild )
+					{
+						PhysicsServer2D.BodySetState(
+							rigidChild.GetRid(),
+							PhysicsServer2D.BodyState.Transform,
+							new Transform2D(rigidChild.Rotation, translatedVector)
+						);
+					}
+					else if ( physicsChild is CharacterBody2D characterChild )
+					{
+						characterChild.Position = translatedVector;
+					}
 				}
 			}
 		}
