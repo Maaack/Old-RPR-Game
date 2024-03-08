@@ -48,3 +48,5 @@ WeaponDirectionTimer = NodePath("../WeaponDirectionTimer")
 [node name="AlienEngineComponent" parent="." node_paths=PackedStringArray("AlienInputComponent") instance=ExtResource("5_8lmr8")]
 EngineForce = 100.0
 AlienInputComponent = NodePath("../AlienInputComponent")
+
+[connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]
