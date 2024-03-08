@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tnxleib8xehv"]
+
+[ext_resource type="Script" path="res://Scenes/Components/AlienEngineComponent.cs" id="1_5m8j0"]
+
+[node name="AlienEngineComponent" type="Node"]
+script = ExtResource("1_5m8j0")

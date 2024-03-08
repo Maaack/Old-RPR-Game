@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1cjlj57vh5dr"]
+[gd_scene load_steps=4 format=3 uid="uid://d1cjlj57vh5dr"]
 
 [ext_resource type="PackedScene" uid="uid://t4t0v3ddvj64" path="res://Scenes/Levels/Level2D.tscn" id="1_mvxtv"]
 [ext_resource type="PackedScene" uid="uid://2nt4oi48i4b7" path="res://Scenes/Asteroids/Asteroid2D.tscn" id="2_nlmjn"]
+[ext_resource type="PackedScene" uid="uid://dlfhcb3bvxbm" path="res://Scenes/Aliens/AlienShip2D.tscn" id="3_j4oyy"]
 
 [node name="Level2D" instance=ExtResource("1_mvxtv")]
 
@@ -23,3 +24,6 @@ angular_velocity = 0.523599
 [node name="Asteroid2D4" parent="." index="5" instance=ExtResource("2_nlmjn")]
 position = Vector2(-818, 560)
 angular_velocity = 0.523599
+
+[node name="AlienShip2D" parent="." index="6" instance=ExtResource("3_j4oyy")]
+position = Vector2(-1274, 4)

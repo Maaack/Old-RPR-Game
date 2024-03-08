@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlfhcb3bvxbm"]
+
+[ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="1_3qpon"]
+[ext_resource type="Script" path="res://Scenes/Aliens/AlienShip2D.cs" id="1_oewwp"]
+[ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="3_ib0a7"]
+[ext_resource type="PackedScene" uid="uid://ceavtfk1yf6gv" path="res://Scenes/Components/AlienInputComponent.tscn" id="4_ehltq"]
+[ext_resource type="PackedScene" uid="uid://tnxleib8xehv" path="res://Scenes/Components/AlienEngineComponent.tscn" id="5_8lmr8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d638b"]
+radius = 20.0
+height = 124.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o11yt"]
+atlas = ExtResource("1_3qpon")
+region = Rect2(444, 151, 124, 40)
+
+[node name="AlienShip2D" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_oewwp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d638b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_o11yt")
+
+[node name="HurtArea2D" parent="." instance=ExtResource("3_ib0a7")]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d638b")
+
+[node name="EngineDirectionTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="WeaponDirectionTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="AlienInputComponent" parent="." node_paths=PackedStringArray("EngineDirectionTimer", "WeaponDirectionTimer") instance=ExtResource("4_ehltq")]
+EngineDirectionTimer = NodePath("../EngineDirectionTimer")
+WeaponDirectionTimer = NodePath("../WeaponDirectionTimer")
+
+[node name="AlienEngineComponent" parent="." node_paths=PackedStringArray("AlienInputComponent") instance=ExtResource("5_8lmr8")]
+EngineForce = 100.0
+AlienInputComponent = NodePath("../AlienInputComponent")
