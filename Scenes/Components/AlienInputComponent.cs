@@ -39,16 +39,27 @@ public partial class AlienInputComponent : ComponentBase
 
 	private void UpdateEngineDirection()
 	{
-		var newEngineDirection = 0.0;
+		var newEngineDirection = currentEngineDirection;
 		var random = new Random();
-		switch( random.Next(0,3) )
+		if ( currentEngineDirection == 0.0 ) {
+			switch( random.Next(0,3) )
+			{
+				case 1:
+					newEngineDirection = 0.6;
+					break;
+				case 2:
+					newEngineDirection = -0.6;
+					break;
+			}
+		}
+		else
 		{
-			case 1:
-				newEngineDirection = 0.6;
-				break;
-			case 2:
-				newEngineDirection = -0.6;
-				break;
+			switch( random.Next(0,2) )
+			{
+				case 1:
+					newEngineDirection = 0.0;
+					break;
+			}
 
 		}
 		if ( newEngineDirection != currentEngineDirection )

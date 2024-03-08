@@ -34,6 +34,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d638b")
 
 [node name="EngineDirectionTimer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="WeaponDirectionTimer" type="Timer" parent="."]
