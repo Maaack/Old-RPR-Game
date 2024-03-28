@@ -20,10 +20,16 @@ public partial class Asteroid2D : RigidBody2D
 	[Export]
 	public float SplitForce = 1.0f;
 	private bool Destroyed = false;
+	private bool PlayerDestroyed = false;
 
 	public bool IsDestroyed()
 	{
 		return Destroyed;
+	}
+
+	public bool IsPlayerDestroyed()
+	{
+		return PlayerDestroyed;
 	}
 
 	private Godot.Collections.Dictionary SizeScaleMap = new Godot.Collections.Dictionary{
@@ -54,13 +60,16 @@ public partial class Asteroid2D : RigidBody2D
 		return (float)SizeScaleMap[(int)Size];
 	}
 	
-	private void Destroy()
+	private void Destroy(int damagingTeam)
 	{
 		if ( IsDestroyed() ) { return; }
+		if ( damagingTeam == (int)Constants.Teams.Player ){
+			PlayerDestroyed = true;
+		}
 		Destroyed = true;
 		QueueFree();
 	}
-	private void OnHurtArea2DDamageReceived(double damageAmount, double damageAngle)
+	private void OnHurtArea2DDamageReceived(double damageAmount, int damagingTeam, double damageAngle)
 	{
 		if ( IsDestroyed() ) { return; }
 		if ( Size > 0 )
@@ -75,7 +84,7 @@ public partial class Asteroid2D : RigidBody2D
 			}
 
 		}
-		Destroy();
+		Destroy(damagingTeam);
 	}
 
 	private void UpdateAsteroidScale()

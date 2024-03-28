@@ -17,7 +17,7 @@ public partial class AlienShip2D : CharacterBody2D
 		Destroyed = true;
 		QueueFree();
 	}
-	private void OnHurtArea2DDamageReceived(double damageAmount, double damageAngle)
+	private void OnHurtArea2DDamageReceived(double damageAmount, int damagingTeam, double damageAngle)
 	{
 		Destroy();
 	}

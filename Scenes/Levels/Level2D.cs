@@ -74,7 +74,9 @@ public partial class Level2D : Node2D
 		if ( node is Asteroid2D asteroidNode) {
 			if ( !asteroidNode.IsDestroyed() ) { return; }
 			destroyedAsteroidCount += 1;
-			EmitSignal(SignalName.ScoreUpdated, 10);
+			if ( asteroidNode.IsPlayerDestroyed() ) {
+				EmitSignal(SignalName.ScoreUpdated, 10);
+			}
 			CheckLevelSuccess();
 		}
 	}

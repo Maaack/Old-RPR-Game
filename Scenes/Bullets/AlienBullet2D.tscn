@@ -6,3 +6,4 @@
 
 [node name="HitArea2D" parent="." index="2"]
 collision_layer = 10
+Team = 2

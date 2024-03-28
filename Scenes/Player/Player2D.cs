@@ -4,7 +4,7 @@ using System;
 public partial class Player2D : RigidBody2D
 {
 	private bool active = false;
-	private void OnHurtArea2DDamageReceived(double damageAmount, double damageAngle)
+	private void OnHurtArea2DDamageReceived(double damageAmount, int damagingTeam, double damageAngle)
 	{
 		QueueFree();
 	}

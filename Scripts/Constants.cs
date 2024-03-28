@@ -11,4 +11,12 @@ public static partial class Constants : Object
 		Right
 	}
 
+	public enum Teams
+	{
+		None,
+		Asteroid,
+		Enemy,
+		Player
+	}
+
 }
