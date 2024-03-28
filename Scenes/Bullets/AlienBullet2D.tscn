@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://52gu5ik2vm6o"]
+
+[ext_resource type="PackedScene" uid="uid://b4qyvrdegd2st" path="res://Scenes/Bullets/Bullet2D.tscn" id="1_rmpxi"]
+
+[node name="AlienBullet2D" instance=ExtResource("1_rmpxi")]
+
+[node name="HitArea2D" parent="." index="2"]
+collision_layer = 4

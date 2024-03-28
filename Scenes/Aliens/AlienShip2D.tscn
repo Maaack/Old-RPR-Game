@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dlfhcb3bvxbm"]
+[gd_scene load_steps=10 format=3 uid="uid://dlfhcb3bvxbm"]
 
 [ext_resource type="Texture2D" uid="uid://cnmoxhlsohx60" path="res://Assets/Sourced/Sprites/spaceShooter2_spritesheet.png" id="1_3qpon"]
 [ext_resource type="Script" path="res://Scenes/Aliens/AlienShip2D.cs" id="1_oewwp"]
 [ext_resource type="PackedScene" uid="uid://dy34rr3buwvtf" path="res://Scenes/Components/HurtArea2D.tscn" id="3_ib0a7"]
 [ext_resource type="PackedScene" uid="uid://ceavtfk1yf6gv" path="res://Scenes/Components/AlienInputComponent.tscn" id="4_ehltq"]
 [ext_resource type="PackedScene" uid="uid://tnxleib8xehv" path="res://Scenes/Components/AlienEngineComponent.tscn" id="5_8lmr8"]
+[ext_resource type="PackedScene" uid="uid://dnl2qt3kjcsvg" path="res://Scenes/Components/AlienWeaponComponent2D.tscn" id="6_fbj3j"]
+[ext_resource type="PackedScene" uid="uid://52gu5ik2vm6o" path="res://Scenes/Bullets/AlienBullet2D.tscn" id="7_locnq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d638b"]
 radius = 20.0
@@ -38,7 +40,9 @@ wait_time = 3.0
 autostart = true
 
 [node name="WeaponDirectionTimer" type="Timer" parent="."]
-wait_time = 0.2
+autostart = true
+
+[node name="FireWeaponTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="AlienInputComponent" parent="." node_paths=PackedStringArray("EngineDirectionTimer", "WeaponDirectionTimer") instance=ExtResource("4_ehltq")]
@@ -48,5 +52,11 @@ WeaponDirectionTimer = NodePath("../WeaponDirectionTimer")
 [node name="AlienEngineComponent" parent="." node_paths=PackedStringArray("AlienInputComponent") instance=ExtResource("5_8lmr8")]
 EngineForce = 100.0
 AlienInputComponent = NodePath("../AlienInputComponent")
+
+[node name="AlienWeaponComponent2D" parent="." node_paths=PackedStringArray("AlienInputComponent", "FireWeaponTimer") instance=ExtResource("6_fbj3j")]
+AlienInputComponent = NodePath("../AlienInputComponent")
+FireWeaponTimer = NodePath("../FireWeaponTimer")
+BulletScene = ExtResource("7_locnq")
+GunForce = 300.0
 
 [connection signal="DamageReceived" from="HurtArea2D" to="." method="OnHurtArea2DDamageReceived"]

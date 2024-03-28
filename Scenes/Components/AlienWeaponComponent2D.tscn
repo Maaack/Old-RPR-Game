@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnl2qt3kjcsvg"]
+
+[ext_resource type="Script" path="res://Scenes/Components/AlienWeaponComponent2D.cs" id="1_1b5y2"]
+
+[node name="AlienWeaponComponent2D" type="Node2D"]
+script = ExtResource("1_1b5y2")
