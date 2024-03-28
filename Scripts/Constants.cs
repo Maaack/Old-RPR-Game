@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public static partial class Constants : Object
@@ -18,5 +19,8 @@ public static partial class Constants : Object
 		Enemy,
 		Player
 	}
+
+	public const int AsteroidPointValue = 10;
+	public const int AlienPointValue = 50;
 
 }

@@ -5,21 +5,32 @@ public partial class AlienShip2D : CharacterBody2D
 {
 
 	private bool Destroyed = false;
+	private bool PlayerDestroyed = false;
 
 	public bool IsDestroyed()
 	{
 		return Destroyed;
 	}
 
-	private void Destroy()
+	public bool IsPlayerDestroyed()
+	{
+		return PlayerDestroyed;
+	}
+
+
+	private void Destroy(int damagingTeam)
 	{
 		if ( IsDestroyed() ) { return; }
+		if ( damagingTeam == (int)Constants.Teams.Player ){
+			PlayerDestroyed = true;
+		}
 		Destroyed = true;
 		QueueFree();
 	}
+
 	private void OnHurtArea2DDamageReceived(double damageAmount, int damagingTeam, double damageAngle)
 	{
-		Destroy();
+		Destroy(damagingTeam);
 	}
 	public override void _PhysicsProcess(double delta)
 	{

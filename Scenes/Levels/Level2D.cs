@@ -69,13 +69,25 @@ public partial class Level2D : Node2D
 		}
 	}
 
+	private void DestroyAlien(Node node)
+	{
+		if ( node is AlienShip2D alienNode) {
+			if ( !alienNode.IsDestroyed() ) { return; }
+			destroyedAsteroidCount += 1;
+			if ( alienNode.IsPlayerDestroyed() ) {
+				EmitSignal(SignalName.ScoreUpdated, Constants.AlienPointValue);
+			}
+			CheckLevelSuccess();
+		}
+	}
+
 	private void DestroyAsteroid(Node node)
 	{
 		if ( node is Asteroid2D asteroidNode) {
 			if ( !asteroidNode.IsDestroyed() ) { return; }
 			destroyedAsteroidCount += 1;
 			if ( asteroidNode.IsPlayerDestroyed() ) {
-				EmitSignal(SignalName.ScoreUpdated, 10);
+				EmitSignal(SignalName.ScoreUpdated, Constants.AsteroidPointValue);
 			}
 			CheckLevelSuccess();
 		}
@@ -101,6 +113,7 @@ public partial class Level2D : Node2D
 	private void OnChildExitedTree(Node node)
 	{
 		DestroyAsteroid(node);
+		DestroyAlien(node);
 		DestroyPlayer(node);
 	}
 

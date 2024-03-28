@@ -69,6 +69,7 @@ public partial class Asteroid2D : RigidBody2D
 		Destroyed = true;
 		QueueFree();
 	}
+
 	private void OnHurtArea2DDamageReceived(double damageAmount, int damagingTeam, double damageAngle)
 	{
 		if ( IsDestroyed() ) { return; }
