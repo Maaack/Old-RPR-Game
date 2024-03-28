@@ -5,4 +5,4 @@
 [node name="AlienBullet2D" instance=ExtResource("1_rmpxi")]
 
 [node name="HitArea2D" parent="." index="2"]
-collision_layer = 4
+collision_layer = 10

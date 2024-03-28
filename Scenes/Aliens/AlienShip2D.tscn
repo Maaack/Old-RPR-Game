@@ -29,7 +29,7 @@ shape = SubResource("CapsuleShape2D_d638b")
 texture = SubResource("AtlasTexture_o11yt")
 
 [node name="HurtArea2D" parent="." instance=ExtResource("3_ib0a7")]
-collision_mask = 3
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D"]
 rotation = 1.5708

@@ -24,12 +24,13 @@ shape = SubResource("CircleShape2D_yu5js")
 texture = SubResource("AtlasTexture_to8sy")
 
 [node name="HurtArea2D" parent="." instance=ExtResource("2_mb8vw")]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D"]
 shape = SubResource("CircleShape2D_yu5js")
 
 [node name="HitArea2D" parent="." instance=ExtResource("4_m8g1m")]
-collision_layer = 2
+collision_layer = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
 shape = SubResource("CircleShape2D_yu5js")

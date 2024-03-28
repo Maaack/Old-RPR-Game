@@ -27,6 +27,7 @@ texture = SubResource("AtlasTexture_aeb3j")
 shape = SubResource("CircleShape2D_tixm5")
 
 [node name="HitArea2D" parent="." instance=ExtResource("2_h0k17")]
+collision_layer = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
 shape = SubResource("CapsuleShape2D_ey6ec")
